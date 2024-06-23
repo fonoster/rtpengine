@@ -1,0 +1,26 @@
+name: publish to docker hub
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number for Docker image'
+        required: true
+      tag_name:
+        description: 'Tag to checkout for sipwise/rtpengine (default: master)'
+        required: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Build with TAG_NAME
+        run: docker build . --build-arg TAG_NAME=${{ github.event.inputs.tag_name }} -t fonoster/rtpengine:${{ github.event.inputs.version }}
+      - name: Publish
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: fonoster/rtpengine
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          workdir: .
+          tags: "latest,${{ github.event.inputs.version }}"

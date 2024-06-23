@@ -1,0 +1,59 @@
+## Deployment example
+## The host must open ports 30000 to 31000
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include ".helm.fullname" . }}
+  labels:
+    {{- include ".helm.labels" . | nindent 4 }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      {{- include ".helm.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include ".helm.selectorLabels" . | nindent 8 }}
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      hostNetwork: true
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: PUBLIC_IP
+              value: {{ .Values.rtpengine.publicIP | quote }}
+            - name: BIND_HTTP_PORT
+              value: {{ .Values.rtpengine.bindHttpPort | quote }}
+            - name: BIND_NG_PORT
+              value: {{ .Values.rtpengine.bindNgPort | quote }}  
+            - name: LOG_LEVEL
+              value: {{ .Values.rtpengine.logLevel | quote }}
+            - name: PORT_MIN
+              value: {{ .Values.rtpengine.rtp.min | quote }}
+            - name: PORT_MAX
+              value: {{ .Values.rtpengine.rtp.max | quote }}
+            - name: CLOUD
+              value: {{ .Values.rtpengine.cloud | quote }}

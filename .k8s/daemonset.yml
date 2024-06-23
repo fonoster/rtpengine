@@ -1,0 +1,43 @@
+## Deployment example
+## The host must open ports in the range of PORT_MIN to PORT_MAX
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: rtpengine
+  labels:
+    component: rtpengine
+spec:
+  selector:
+    matchLabels:
+      component: rtpengine
+  template:
+    metadata:
+      name: rtpengine
+      labels:
+        component: rtpengine
+    spec:
+      # Here we make sure the pod starts on a single node
+      nodeSelector:
+        # cloud.google.com/gke-nodepool: rtpengine
+        rtpengine: "true"
+      hostNetwork: true
+      containers:
+        - name: rtpengine
+          image: fonoster/rtpengine:0.3.16
+          env:
+            # If PUBLIC_IP is undefined the container will guess the public IP
+            - name: PUBLIC_IP
+              value: "40.68.127.4"
+            - name: BIND_HTTP_PORT
+              value: "5000"
+            - name: LOG_LEVEL
+              value: "8" 
+            - name: PORT_MIN
+              value: "10000"
+            - name: PORT_MAX
+              value: "10500"              
+            - name: CLOUD
+              value: unknown
+            - name: BIND_NG_PORT
+              value: 22222

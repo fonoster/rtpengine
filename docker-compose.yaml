@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  
+  rtpengine:
+    image: fonoster/rtpengine:latest
+    build:
+      context: .
+    network_mode: "host" # At the moment this option only works in Linux
+    environment:
+      PUBLIC_IP: ${DOCKER_HOST_ADDRESS}
+      PORT_MIN: 10000
+      PORT_MAX: 20000
+      LOG_LEVEL: '6'

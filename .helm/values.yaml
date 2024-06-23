@@ -1,0 +1,48 @@
+# Default values for RTPEngine
+
+image:
+  repository: fonoster/rtpengine
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart version.
+  tag: ""
+
+rtpengine:
+  # If left empty the container will guess the public IP
+  # publicIP:
+  # If left empty the container will do its best to guess the environment.
+  # Acceptable values are: gcp,aws,digitalocean, and azure
+  # cloud:  
+  bindHttpPort: 8080
+  bindNgPort: 22222
+  logLevel: 7
+  rtp:
+    min: 10000
+    max: 10500
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources: {}
+replicaCount: 1
+nameOverride: ""
+fullnameOverride: ""
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+resources:
+  limits: {}
+  requests: {}
+nodeSelector: {
+}
+tolerations: []
+affinity: {}

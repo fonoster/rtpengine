@@ -1,0 +1,6 @@
+apiVersion: v2
+name: rtpengine
+description: RTPEngine chart for Fonoster
+type: application
+version: 0.1.1
+appVersion: 3.0
