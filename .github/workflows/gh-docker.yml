@@ -26,4 +26,4 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           workdir: .
           tags: "latest,${{ github.event.inputs.version }}"
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
