@@ -8,7 +8,7 @@ services:
       context: .
     network_mode: "host" # At the moment this option only works in Linux
     environment:
-      PUBLIC_IP: ${DOCKER_HOST_ADDRESS}
-      PORT_MIN: 10000
-      PORT_MAX: 20000
-      LOG_LEVEL: '6'
+      RTPENGINE_PUBLIC_IP: ${DOCKER_HOST_ADDRESS}
+      RTPENGINE_PORT_MIN: 10000
+      RTPENGINE_PORT_MAX: 20000
+      RTPENGINE_LOG_LEVEL: '6'

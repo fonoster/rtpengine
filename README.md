@@ -43,16 +43,16 @@ docker run -it --net=host \
 
 Environment variables are used in the entry point script to render configuration templates. You can specify the values of these variables during `docker run`, `docker-compose up`, or in Kubernetes manifests in the `env` array.
 
-- `PUBLIC_IP` - Host's external IP. If undefined, the container will attempt to guess the host's public IP
-- `BIND_HTTP_PORT` - The port the container is listening on for HTTP requests. Defaults to `8080`
-- `BIND_NG_PORT` - The port the container is listening on for NG requests. Defaults to `22222`
-- `LOG_LEVEL` - Level of verbosity of the logs. Defaults to `7`
-- `PORT_MIN` - Lower value of port range. Defaults to `10000`
-- `PORT_MAX` - Upper value of port range. Defalts to `10500`
-- `CLOUD` - Name of cloud the provided. This will help the container determine its public IP. Acceptable values are: `gcp`, `aws`, `digitalocean`, `azure`, and `*`. Defaults to `*`
-- `HOMER_ADDR` - Host and port of the HOMER server. If defined, the container will send RTP statistics to the specified HOMER server. Defaults to `nil`
-- `HOMER_PROTOCOL` - Protocol used to send RTP statistics to the HOMER server. Acceptable values are: `udp` and `tcp`. Defaults to `udp`
-- `HOMER_ID` - ID of the HOMER server. Defaults to random four digit number.
+- `RTPENGINE_PUBLIC_IP` - Host's external IP. If undefined, the container will attempt to guess the host's public IP
+- `RTPENGINE_BIND_HTTP_PORT` - The port the container is listening on for HTTP requests. Defaults to `8080`
+- `RTPENGINE_BIND_NG_PORT` - The port the container is listening on for NG requests. Defaults to `22222`
+- `RTPENGINE_LOG_LEVEL` - Level of verbosity of the logs. Defaults to `7`
+- `RTPENGINE_PORT_MIN` - Lower value of port range. Defaults to `10000`
+- `RTPENGINE_PORT_MAX` - Upper value of port range. Defalts to `10500`
+- `RTPENGINE_CLOUD` - Name of cloud the provided. This will help the container determine its public IP. Acceptable values are: `gcp`, `aws`, `digitalocean`, `azure`, and `*`. Defaults to `*`
+- `RTPENGINE_HOMER_ADDR` - Host and port of the HOMER server. If defined, the container will send RTP statistics to the specified HOMER server. Defaults to `nil`
+- `RTPENGINE_HOMER_PROTOCOL` - Protocol used to send RTP statistics to the HOMER server. Acceptable values are: `udp` and `tcp`. Defaults to `udp`
+- `RTPENGINE_HOMER_ID` - ID of the HOMER server. Defaults to random four digit number.
 
 ## Exposed ports
 
